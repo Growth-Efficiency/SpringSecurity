@@ -36,3 +36,9 @@ http.formLogin();
 - `HttpSecurity`
   - 세부적인 보안 기능을 설정할 수 있는 API 제공
   - `configure` 메소드의 인수 값
+
+# 03. Login 동작 원리
+![login](img/login.png)
+
+# 04. Logout 동작 원리
+![logout](img/logout.png)
