@@ -60,3 +60,8 @@ http.formLogin();
 # 06. 인증 API - AnonymousAuthenticationFilter
 
 ![anonymousAuthenticationFilter](img/anonymousAuthenticationFilter.png)
+
+# 07. 동시 세션 제어, 세션 고정 보호, 세션 정책
+![sessionMaximumSessions](img/sessionMaximumSessions.png)
+![sessionFixation](img/sessionFixation.png)
+![sessionCreationPolicy](img/sessionCreationPolicy.png)
