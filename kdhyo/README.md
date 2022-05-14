@@ -39,9 +39,11 @@ http.formLogin();
 
 # 03. Login 동작 원리
 ![login](img/login.png)
-
+  
+![login_info](img/usernamePasswordAuthenticationFilter.png)
 # 04. Logout 동작 원리
 ![logout](img/logout.png)
+![logout_info](img/logoutFilter.png)
 
 # 05. 인증 API - Remember Me 인증
 1. 세션이 만료되고 웹 브라우저가 종료된 후에도 어플리케이션이 사용자를 기억하는 기능
@@ -51,3 +53,6 @@ http.formLogin();
     - 인증 성공 (Remember-Me 쿠키 설정)
     - 인증 실패 (쿠키가 존재하면 쿠키 무효화)
     - 로그아웃 (쿠키가 존재하면 쿠키 무효화)
+
+![rememberMe](img/rememberme.png)
+![rememberMe_info](img/rememberMeAuthenticationFilter.png)
