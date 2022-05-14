@@ -56,3 +56,7 @@ http.formLogin();
 
 ![rememberMe](img/rememberme.png)
 ![rememberMe_info](img/rememberMeAuthenticationFilter.png)
+
+# 06. 인증 API - AnonymousAuthenticationFilter
+
+![anonymousAuthenticationFilter](img/anonymousAuthenticationFilter.png)
