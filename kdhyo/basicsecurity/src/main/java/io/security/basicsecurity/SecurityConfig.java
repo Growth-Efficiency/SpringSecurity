@@ -14,6 +14,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+import org.springframework.security.web.savedrequest.SavedRequest;
 
 @Configuration
 @EnableWebSecurity
@@ -37,6 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// 인증
 		http
 			.authorizeRequests()
+			.antMatchers("/login").permitAll()
 			.antMatchers("/user").hasRole("USER")
 			.antMatchers("/admin/pay").hasRole("ADMIN")
 			.antMatchers("/admin/**").access("hasRole('ADMIN') or hasRole('SYS')")
@@ -44,6 +47,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.authenticated();
 
 		login(http);
+
+		http
+			.exceptionHandling()
+			.authenticationEntryPoint((request, response, authException) -> response.sendRedirect("/login"))
+			.accessDeniedHandler((request, response, accessDeniedException) -> response.sendRedirect("/denied"))
+		;
 
 //		logout(http);
 
@@ -61,7 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.sessionManagement() // 세션 관리 기능이 작동한다.
 			.maximumSessions(1) // 최대 허용 가능 세션 수, -1: 무제한 로그인 세션 허용
 			.maxSessionsPreventsLogin(false) // 동시 로그인 차단함, false: 기존 세션 만료(default)
-			;
+		;
 
 //		http
 //			.sessionManagement()
@@ -75,6 +84,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private void login(HttpSecurity http) throws Exception {
 		// 인가
 		http.formLogin()
+			.successHandler((request, response, authentication) -> { // 로그인 후 기존 접속하려던 URL 로 Redirect
+				HttpSessionRequestCache requestCache = new HttpSessionRequestCache();
+				SavedRequest savedRequest = requestCache.getRequest(request, response);
+				String redirectUrl = savedRequest.getRedirectUrl();
+				response.sendRedirect(redirectUrl);
+			})
 //			.loginPage("/loginPage") // 사용자 정의 로그인 페이지
 //			.defaultSuccessUrl("/23") // 로그인 성공 후 이동 페이지
 //			.failureUrl("/login2") // 로그인 실패 후 이동 페이지
@@ -118,7 +133,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				}
 			})
 			.deleteCookies("remember-me") // 로그아웃 후 쿠키 삭제
-			;
+		;
 	}
-	
+
 }
