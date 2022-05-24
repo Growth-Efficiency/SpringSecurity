@@ -6,9 +6,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-@Configuration
-@EnableWebSecurity
-@Order(0)
+//@Configuration
+//@EnableWebSecurity
+//@Order(0)
 public class SecurityConfig2 extends WebSecurityConfigurerAdapter {
 
 	@Override
@@ -21,8 +21,8 @@ public class SecurityConfig2 extends WebSecurityConfigurerAdapter {
 			.httpBasic();
 	}
 
-	@Configuration
-	@Order(1)
+//	@Configuration
+//	@Order(1)
 	class SecurityConfig3 extends WebSecurityConfigurerAdapter {
 
 		@Override
