@@ -11,14 +11,15 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
 
-//@Configuration
-//@EnableWebSecurity
+@Configuration
+@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private final UserDetailsService userDetailsService;
@@ -48,11 +49,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		login(http);
 
-		http
-			.exceptionHandling()
-			.authenticationEntryPoint((request, response, authException) -> response.sendRedirect("/login"))
-			.accessDeniedHandler((request, response, accessDeniedException) -> response.sendRedirect("/denied"))
-		;
+		SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_INHERITABLETHREADLOCAL);
+
+//		http
+//			.exceptionHandling()
+//			.authenticationEntryPoint((request, response, authException) -> response.sendRedirect("/login"))
+//			.accessDeniedHandler((request, response, accessDeniedException) -> response.sendRedirect("/denied"))
+//		;
 
 //		logout(http);
 
